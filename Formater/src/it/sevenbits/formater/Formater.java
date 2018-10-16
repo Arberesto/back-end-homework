@@ -21,7 +21,9 @@ public class Formater {
         //
         String result4 = FindAndReplaceInText("([}])[ ]*[\n]?[ ]*", result3,"$1\n");
         //
-        return result4;
+        String result5 = FindAndReplaceInText("(\n)\t?(\n|[ ]*)",result4,"$1");
+        //String result6 = FindAndReplaceInText("{\n([.]*)\n}",result5,"$1");
+        return FindAndReplaceInText("[{][ ]*\n[ ]*[}]",MakeTabulations(result5),"{}");
     }
 
     public String FindAndReplaceInText(String regularExpression,String line,String replacement) {
@@ -32,6 +34,27 @@ public class Formater {
             matcher.appendReplacement(buffer, replacement);
         }
         matcher.appendTail(buffer);
+        return buffer.toString();
+    }
+
+    public String MakeTabulations(String line){
+        StringBuffer buffer = new StringBuffer();
+        Pattern pattern = Pattern.compile("\n");
+        String [] pieces = pattern.split(line);
+        int spaceCounter = 0;
+        String spaceString = "    ";
+        for(int i = 0; i < pieces.length; i++){
+            for (int j = 0; j < spaceCounter; j++){
+                pieces[i] = spaceString.concat(pieces[i]);
+            }
+            if (Pattern.matches(".*[{]",pieces[i])) {
+                spaceCounter +=1;
+            }
+            if (Pattern.matches(".*[}]",pieces[i])&&(spaceCounter > 0)) {
+                spaceCounter -=1;
+            }
+            buffer.append(pieces[i]).append("\n");
+        }
         return buffer.toString();
     }
 }
