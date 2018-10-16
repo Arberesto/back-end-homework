@@ -1,13 +1,14 @@
 package it.sevenbits.formater;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 
 public class Main {
     public static void main(String[] args) {
         //Formater formater = new Formater("({|})");
         Formater formater = new Formater("[{}]");
         StringBuilder sb = new StringBuilder();
-        try(FileReader reader = new FileReader(args[0] + "example2.txt"))
+        try(FileReader reader = new FileReader(args[0]))
         {
             // читаем посимвольно
             int c;
@@ -22,7 +23,15 @@ public class Main {
         if (sb.length() != 0) {
             String line = sb.toString();
             String result = formater.FormatLine(line);
-            System.out.println(result);
+            try(FileWriter writer = new FileWriter(args[0]+".fixed"))
+            {
+                writer.write(result);
+                writer.flush();
+            }
+            catch(Exception ex){
+
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }

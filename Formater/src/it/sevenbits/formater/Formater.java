@@ -44,14 +44,14 @@ public class Formater {
         int spaceCounter = 0;
         String spaceString = "    ";
         for(int i = 0; i < pieces.length; i++){
+            if (Pattern.matches(".*[}]",pieces[i])&&(spaceCounter > 0)) {
+                spaceCounter -=1;
+            }
             for (int j = 0; j < spaceCounter; j++){
                 pieces[i] = spaceString.concat(pieces[i]);
             }
             if (Pattern.matches(".*[{]",pieces[i])) {
                 spaceCounter +=1;
-            }
-            if (Pattern.matches(".*[}]",pieces[i])&&(spaceCounter > 0)) {
-                spaceCounter -=1;
             }
             buffer.append(pieces[i]).append("\n");
         }
