@@ -7,11 +7,8 @@ import java.util.regex.Pattern;
 public class Formater {
     private String regularExpression;
 
-    private Formater(){}
-
-    public Formater(String newRegularExpression) {
-        regularExpression = newRegularExpression;
-    }
+    public Formater(){}
+    
     public String FormatLine(String line){
         String result1 = FindAndReplaceInText("([{])[ ]*[\n]?", line,"$1\n");
         //

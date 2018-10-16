@@ -5,8 +5,7 @@ import java.io.FileWriter;
 
 public class Main {
     public static void main(String[] args) {
-        //Formater formater = new Formater("({|})");
-        Formater formater = new Formater("[{}]");
+        Formater formater = new Formater();
         StringBuilder sb = new StringBuilder();
         try(FileReader reader = new FileReader(args[0]))
         {
