@@ -8,7 +8,7 @@ public class Formater {
     private String regularExpression;
 
     public Formater(){}
-    
+
     public String FormatLine(String line){
         String result1 = FindAndReplaceInText("([{])[ ]*[\n]?", line,"$1\n");
         //
