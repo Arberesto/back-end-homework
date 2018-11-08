@@ -8,7 +8,7 @@ public class StringReader implements IStringReader, AutoCloseable {
     private FileReader reader;
     private int nextElement;
 
-    public StringReader(String filename) throws FileNotFoundException {
+    public StringReader(final String filename) throws FileNotFoundException {
         reader = new FileReader(filename);
         try {
             nextElement = reader.read();
