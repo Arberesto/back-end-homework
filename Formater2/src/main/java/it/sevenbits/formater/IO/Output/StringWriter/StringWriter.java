@@ -1,20 +1,37 @@
 package it.sevenbits.formater.IO.Output.StringWriter;
 
-import java.io.FileWriter;
-import java.io.IOException;
+/**
+ * <pre>
+ * Write in string per symbol
+ * </pre>
+ * @see it.sevenbits.formater.IO.Output.StringWriter.IStringWriter
+ * @since             1.0
+ */
 
-public class StringWriter implements IStringWriter, AutoCloseable {
-    private FileWriter writer;
-    public StringWriter(final String filename) throws IOException {
-        writer = new FileWriter(filename);
+public class StringWriter implements IStringWriter {
+    private StringBuilder sb;
+
+    /**
+     * Constructor for StringWriter
+     * @since             1.0
+     */
+
+    public StringWriter() {
+        sb = new StringBuilder();
     }
 
-    public void write(final char nextSymbol) throws IOException {
-        writer.append(nextSymbol);
-        writer.flush();
+    /**
+     * write one symbol to string
+     * @since             1.0
+     * @param nextSymbol next symbol to write
+     */
+
+    public void write(final char nextSymbol) {
+        sb.append(nextSymbol);
     }
 
-    public void close() {
-
+    @Override
+    public String toString() {
+        return sb.toString();
     }
 }

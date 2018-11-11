@@ -5,6 +5,10 @@ import it.sevenbits.formater.IO.Output.IWriter;
 
 import java.io.IOException;
 
+/**
+ *  Class can format valid Java code from string
+ */
+
 public class JavaFormater {
     private static final int HAS_OPENED_BRACE = 2; // 1 or more if has opened brace before(number of braces)
     private static final int IS_PREVIOUS_NEWLINE = 3; //if previous symbol is \n
@@ -13,88 +17,106 @@ public class JavaFormater {
     private int[] flags = new int[]{0, 0, 0, 0, 0, 0};
     private char previousSymbol;
 
-    public JavaFormater() {
-    }
+    /**
+     * Get text and format it(spaces, newlines, etc)
+     * @param reader - Reader object to read from destination file,stream,string,or any other available variant
+     * @param writer - Writer object to write in destination file,stream,string,or any other available variant
+     * @throws IOException if can't correctly read from source or write in destination
+     */
 
-    public void format(final IReader iReader, final IWriter iWriter) throws IOException {
+    public void format(final IReader reader, final IWriter writer) throws IOException {
         char symbol;
         resetFlags();
-        while (iReader.hasNext()) {
-            symbol = iReader.read();
+        while ((symbol = (char) reader.read()) != (char) -1) {
             final int spaceTab = 4;
             switch (symbol) {
                 case '{':
+                    flags[IS_PREVIOUS_NEWLINE] = 0;
+                    if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
+                        writer.write('\n');
+                        flags[IS_PREVIOUS_NEWLINE] += 1;
+                    }
                     flags[EXPECTED_NEWLINE] = 1;
                     if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
                         if (previousSymbol != ' ') {
-                            iWriter.write(' ');
+                            writer.write(' ');
                         }
-                        flags[IS_PREVIOUS_NEWLINE] = 0;
+                    } else {
+                        for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
+                            writer.write(' ');
+                        }
                     }
-                    iWriter.write(symbol);
+                    writer.write(symbol);
                     flags[HAS_OPENED_BRACE] += 1;
                     flags[HAS_NON_DIVIDER_BEFORE] = 0;
                     flags[EXPECTED_NEWLINE] = 1;
                     break;
                 case '}':
+                    flags[IS_PREVIOUS_NEWLINE] = 0;
                     if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        iWriter.write('\n');
+                        writer.write('\n');
+                        flags[IS_PREVIOUS_NEWLINE] += 1;
                     }
                     flags[HAS_OPENED_BRACE] -= 1;
                     if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
                         for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            iWriter.write(' ');
+                            writer.write(' ');
                         }
                     }
-                    iWriter.write(symbol);
+                    writer.write(symbol);
                     flags[EXPECTED_NEWLINE] = 1;
                     flags[HAS_NON_DIVIDER_BEFORE] = 0;
                     break;
                 case ' ':
                     if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        iWriter.write('\n');
+                        writer.write('\n');
+                        flags[IS_PREVIOUS_NEWLINE] += 1;
                     }
                     if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
-                        iWriter.write(symbol);
+                        writer.write(symbol);
                     }
                     break;
                 case '\n':
-                    if (flags[IS_PREVIOUS_NEWLINE] > 2) {
+                    if (flags[IS_PREVIOUS_NEWLINE] > 1) {
                         flags[IS_PREVIOUS_NEWLINE] = 2;
                     } else {
-                        iWriter.write(symbol);
+                        writer.write(symbol);
+                        flags[IS_PREVIOUS_NEWLINE] += 1;
                         flags[EXPECTED_NEWLINE] = 0;
                     }
                     break;
                 case '\t':
                     if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        iWriter.write('\n');
+                        writer.write('\n');
+                        flags[IS_PREVIOUS_NEWLINE] += 1;
                     }
                     if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
-                        iWriter.write(symbol);
+                        writer.write(symbol);
                     }
                     break;
                 case ';':
-                    iWriter.write(symbol);
+                    writer.write(symbol);
                     flags[HAS_NON_DIVIDER_BEFORE] = 0;
                     flags[EXPECTED_NEWLINE] = 1;
+                    flags[IS_PREVIOUS_NEWLINE] = 0;
                     break;
                 default:
+                    flags[IS_PREVIOUS_NEWLINE] = 0;
                     if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
                         if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                            iWriter.write('\n');
+                            writer.write('\n');
+                            flags[IS_PREVIOUS_NEWLINE] += 1;
                         }
                         for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            iWriter.write(' ');
+                            writer.write(' ');
                         }
                     }
                     flags[HAS_NON_DIVIDER_BEFORE] += 1;
-                    iWriter.write(symbol);
+                    writer.write(symbol);
                     break;
             }
             previousSymbol = symbol;
         }
-
     }
 
     private void resetFlags() {
