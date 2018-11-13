@@ -3,6 +3,5 @@ target/
 *.class
 *.jar
 *.iml
-*.xml
 *.fixed
 
