@@ -43,5 +43,6 @@ public class StringWriter implements IStringWriter {
      * @see AutoCloseable
      */
 
-    public void close() {}
+    public void close() {
+    }
 }

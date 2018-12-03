@@ -1,8 +1,22 @@
 package it.sevenbits.formater.java.token;
 
+/**
+ * Token that storage string lexeme
+ */
+
 public interface IToken {
 
-    public String getName();
+    /**
+     * Get name of this token
+     * @return name
+     */
 
-    public String getLexeme();
+    String getName();
+
+    /**
+     * Get lexeme of this token
+     * @return lexeme
+     */
+
+    String getLexeme();
 }

@@ -11,14 +11,13 @@ public interface ILexer extends AutoCloseable {
     /**
      * Return next token readed from stream
      * @return IToken object
-     * @throws IOException if error occurred in FileReader
      */
-   IToken getNextToken() throws IOException;
+   IToken getNextToken();
 
     /**
      * Check if lexer has another token to get
      * @return true if has next token, else return false
-     * @throws IOException if error occurred in FileReader
+     * @throws IOException if error occurred in Reader
      */
 
    boolean hasNextToken() throws IOException;

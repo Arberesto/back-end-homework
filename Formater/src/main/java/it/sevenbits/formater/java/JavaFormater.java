@@ -1,9 +1,10 @@
 package it.sevenbits.formater.java;
 
 import it.sevenbits.formater.io.input.IReader;
+import it.sevenbits.formater.io.output.BufferedWriter;
 import it.sevenbits.formater.io.output.IWriter;
 import it.sevenbits.formater.java.lexer.ILexer;
-import it.sevenbits.formater.java.lexer.ILexerFactory;
+import it.sevenbits.formater.java.lexer.Factory.ILexerFactory;
 import it.sevenbits.formater.java.token.IToken;
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ public class JavaFormater implements IFormater {
     private char previousSymbol;
 
     /**
-     * Bond formater's LexerFactory with actual object
+     * Assign  formater's LexerFactory with actual object
      * @param lexerFactory object to bond with LexerFactory of formater
      */
 
@@ -37,7 +38,7 @@ public class JavaFormater implements IFormater {
      */
 
     public void format(final IReader reader, final IWriter writer) throws IOException {
-        char symbol = ' ';
+        BufferedWriter bufferedWriter = new BufferedWriter(writer);
         ILexer lexer = this.lexerFactory.createLexer(reader);
         while (lexer.hasNextToken()) {
             final int spaceTab = 4;
@@ -46,20 +47,20 @@ public class JavaFormater implements IFormater {
                 case "TOKEN_LEFTBRACE":
                     flags[IS_PREVIOUS_NEWLINE] = 0;
                     if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        writer.write('\n');
+                        bufferedWriter.write('\n');
                         flags[IS_PREVIOUS_NEWLINE] += 1;
                     }
                     flags[EXPECTED_NEWLINE] = 1;
                     if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
                         if (previousSymbol != ' ') {
-                            writer.write(' ');
+                            bufferedWriter.write(' ');
                         }
                     } else {
                         for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            writer.write(' ');
+                            bufferedWriter.write(' ');
                         }
                     }
-                    writer.write(symbol);
+                    bufferedWriter.write(token.getLexeme());
                     flags[HAS_OPENED_BRACE] += 1;
                     flags[HAS_NON_DIVIDER_BEFORE] = 0;
                     flags[EXPECTED_NEWLINE] = 1;
@@ -67,48 +68,48 @@ public class JavaFormater implements IFormater {
                 case "TOKEN_RIGHTBRACE":
                     flags[IS_PREVIOUS_NEWLINE] = 0;
                     if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        writer.write('\n');
+                        bufferedWriter.write('\n');
                         flags[IS_PREVIOUS_NEWLINE] += 1;
                     }
                     flags[HAS_OPENED_BRACE] -= 1;
                     if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
                         for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            writer.write(' ');
+                            bufferedWriter.write(' ');
                         }
                     }
-                    writer.write(symbol);
+                    bufferedWriter.write(token.getLexeme());
                     flags[EXPECTED_NEWLINE] = 1;
                     flags[HAS_NON_DIVIDER_BEFORE] = 0;
                     break;
                 case "TOKEN_SPACE":
                     if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        writer.write('\n');
+                        bufferedWriter.write('\n');
                         flags[IS_PREVIOUS_NEWLINE] += 1;
                     }
                     if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
-                        writer.write(symbol);
+                        bufferedWriter.write(token.getLexeme());
                     }
                     break;
                 case "TOKEN_NEWLINE":
                     if (flags[IS_PREVIOUS_NEWLINE] > 1) {
                         flags[IS_PREVIOUS_NEWLINE] = 2;
                     } else {
-                        writer.write(symbol);
+                        bufferedWriter.write(token.getLexeme());
                         flags[IS_PREVIOUS_NEWLINE] += 1;
                         flags[EXPECTED_NEWLINE] = 0;
                     }
                     break;
                 case "TOKEN_TABULATION":
                     if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        writer.write('\n');
+                        bufferedWriter.write('\n');
                         flags[IS_PREVIOUS_NEWLINE] += 1;
                     }
                     if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
-                        writer.write(symbol);
+                        bufferedWriter.write(token.getLexeme());
                     }
                     break;
                 case "TOKEN_SEMICOLON":
-                    writer.write(symbol);
+                    bufferedWriter.write(token.getLexeme());
                     flags[HAS_NON_DIVIDER_BEFORE] = 0;
                     flags[EXPECTED_NEWLINE] = 1;
                     flags[IS_PREVIOUS_NEWLINE] = 0;
@@ -117,20 +118,20 @@ public class JavaFormater implements IFormater {
                     flags[IS_PREVIOUS_NEWLINE] = 0;
                     if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
                         if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                            writer.write('\n');
+                            bufferedWriter.write('\n');
                             flags[IS_PREVIOUS_NEWLINE] += 1;
                         }
                         for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            writer.write(' ');
+                            bufferedWriter.write(' ');
                         }
                     }
                     flags[HAS_NON_DIVIDER_BEFORE] += 1;
-                    writer.write(symbol);
+                    bufferedWriter.write(token.getLexeme());
                     break;
                 default:
                     break;
             }
-            previousSymbol = symbol;
+            previousSymbol = token.getLexeme().charAt(0);
         }
     }
 }

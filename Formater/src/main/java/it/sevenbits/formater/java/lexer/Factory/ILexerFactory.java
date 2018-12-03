@@ -1,6 +1,7 @@
-package it.sevenbits.formater.java.lexer;
+package it.sevenbits.formater.java.lexer.Factory;
 
 import it.sevenbits.formater.io.input.IReader;
+import it.sevenbits.formater.java.lexer.ILexer;
 
 /**
  * Factory to create ILexer objects
