@@ -1,10 +1,11 @@
-package it.sevenbits.formater.IO.Input.StringReader;
+package it.sevenbits.formater.io.input.stringReader;
+
 
 /**
  * <pre>
  * Read from string per symbol
  * </pre>
- * @see it.sevenbits.formater.IO.Input.StringReader.IStringReader
+ * @see it.sevenbits.formater.io.input.stringReader.IStringReader
  * @since             1.0
  */
 
@@ -13,7 +14,7 @@ public class StringReader implements IStringReader {
     private int nextElementIndex;
 
     /**
-     * Constructor for StringReader
+     * Constructor for stringReader
      * @param string string to read from
      */
 
@@ -43,4 +44,11 @@ public class StringReader implements IStringReader {
         }
         return -1;
     }
+
+    /**
+     * Automatically calls when closing this object
+     * @see AutoCloseable
+     */
+
+    public void close() {}
 }

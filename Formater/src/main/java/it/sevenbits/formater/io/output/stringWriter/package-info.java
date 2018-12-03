@@ -3,4 +3,4 @@
  * @author Dmitriy Bagaev
  * @version 1.0
  */
-package it.sevenbits.formater.IO.Input.StringReader;
+package it.sevenbits.formater.io.output.stringWriter;

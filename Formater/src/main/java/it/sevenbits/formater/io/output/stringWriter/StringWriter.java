@@ -1,10 +1,12 @@
-package it.sevenbits.formater.IO.Output.StringWriter;
+package it.sevenbits.formater.io.output.stringWriter;
+
+import java.io.IOException;
 
 /**
  * <pre>
  * Write in string per symbol
  * </pre>
- * @see it.sevenbits.formater.IO.Output.StringWriter.IStringWriter
+ * @see it.sevenbits.formater.io.output.stringWriter.IStringWriter
  * @since             1.0
  */
 
@@ -12,7 +14,7 @@ public class StringWriter implements IStringWriter {
     private StringBuilder sb;
 
     /**
-     * Constructor for StringWriter
+     * Constructor for stringWriter
      * @since             1.0
      */
 
@@ -34,4 +36,12 @@ public class StringWriter implements IStringWriter {
     public String toString() {
         return sb.toString();
     }
+
+    /**
+     * Automatically calls when closing this object
+     * @throws IOException if close is not supported
+     * @see AutoCloseable
+     */
+
+    public void close() {}
 }

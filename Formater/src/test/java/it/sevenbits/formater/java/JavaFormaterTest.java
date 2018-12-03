@@ -1,7 +1,8 @@
 package it.sevenbits.formater.java;
 
-import it.sevenbits.formater.IO.Input.StringReader.StringReader;
-import it.sevenbits.formater.IO.Output.StringWriter.StringWriter;
+import it.sevenbits.formater.io.input.stringReader.StringReader;
+import it.sevenbits.formater.io.output.stringWriter.StringWriter;
+import it.sevenbits.formater.java.lexer.LexerFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class JavaFormaterTest {
 
         @Before
         public void setUp() {
-            this.javaFormater = new JavaFormater();
+            this.javaFormater = new JavaFormater(new LexerFactory());
         }
 
         @Test
@@ -22,7 +23,7 @@ public class JavaFormaterTest {
             StringWriter writer = new StringWriter();
             StringReader reader = new StringReader("{{{}}}");
             javaFormater.format(reader, writer);
-            assertEquals("Wrong! Should be: \n {\n    {\n        {\n        }\n    }\n}",
+            assertEquals("Wrong result!",
                     "{\n    {\n        {\n        }\n    }\n}" ,writer.toString());
         }
         @Test
@@ -30,7 +31,7 @@ public class JavaFormaterTest {
             StringWriter writer = new StringWriter();
             StringReader reader = new StringReader("{\n    {\n        {\n        }\n    }\n}");
             javaFormater.format(reader, writer);
-            assertEquals("Wrong!Should be: \n {\n    {\n        {\n        }\n    }\n}",
+            assertEquals("Wrong result!",
                     "{\n    {\n        {\n        }\n    }\n}" ,writer.toString());
         }
 
@@ -39,7 +40,7 @@ public class JavaFormaterTest {
             StringWriter writer = new StringWriter();
             StringReader reader = new StringReader("");
             javaFormater.format(reader, writer);
-            assertEquals("Wrong!Should be: \n ",
+            assertEquals("Wrong result!",
                 "" ,writer.toString());
         }
 

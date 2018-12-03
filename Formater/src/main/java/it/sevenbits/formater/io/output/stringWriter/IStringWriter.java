@@ -1,6 +1,6 @@
-package it.sevenbits.formater.IO.Output.StringWriter;
+package it.sevenbits.formater.io.output.stringWriter;
 
-import it.sevenbits.formater.IO.Output.IWriter;
+import it.sevenbits.formater.io.output.IWriter;
 
 /**
  * Class for writing in string per symbol

@@ -1,6 +1,6 @@
-package it.sevenbits.formater.IO.Input.StringReader;
+package it.sevenbits.formater.io.input.stringReader;
 
-import it.sevenbits.formater.IO.Input.IReader;
+import it.sevenbits.formater.io.input.IReader;
 
 /**
  * Class for reading from string per symbol
