@@ -6,10 +6,11 @@ import it.sevenbits.formater.io.output.IWriter;
 import it.sevenbits.formater.java.lexer.ILexer;
 import it.sevenbits.formater.java.lexer.Factory.ILexerFactory;
 import it.sevenbits.formater.java.token.IToken;
+
 import java.io.IOException;
 
 /**
- *  Format valid Java code from stream
+ * Format valid Java code from stream
  */
 
 public class JavaFormater implements IFormater {
@@ -23,6 +24,7 @@ public class JavaFormater implements IFormater {
 
     /**
      * Assign  formater's LexerFactory with actual object
+     *
      * @param lexerFactory object to bond with LexerFactory of formater
      */
 
@@ -32,6 +34,7 @@ public class JavaFormater implements IFormater {
 
     /**
      * Get text and format it(spaces, newlines, etc)
+     *
      * @param reader - Reader object to read text from stream
      * @param writer - Writer object to write formated text in stream
      * @throws IOException if occurred 'reader' or 'writer' error
@@ -40,98 +43,98 @@ public class JavaFormater implements IFormater {
     public void format(final IReader reader, final IWriter writer) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(writer);
         ILexer lexer = this.lexerFactory.createLexer(reader);
-        while (lexer.hasNextToken()) {
-            final int spaceTab = 4;
-            IToken token = lexer.getNextToken();
-            switch (token.getName()) {
-                case "TOKEN_LEFTBRACE":
-                    flags[IS_PREVIOUS_NEWLINE] = 0;
-                    if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        bufferedWriter.write('\n');
-                        flags[IS_PREVIOUS_NEWLINE] += 1;
-                    }
-                    flags[EXPECTED_NEWLINE] = 1;
-                    if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
-                        if (previousSymbol != ' ') {
-                            bufferedWriter.write(' ');
-                        }
-                    } else {
-                        for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            bufferedWriter.write(' ');
-                        }
-                    }
-                    bufferedWriter.write(token.getLexeme());
-                    flags[HAS_OPENED_BRACE] += 1;
-                    flags[HAS_NON_DIVIDER_BEFORE] = 0;
-                    flags[EXPECTED_NEWLINE] = 1;
-                    break;
-                case "TOKEN_RIGHTBRACE":
-                    flags[IS_PREVIOUS_NEWLINE] = 0;
-                    if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        bufferedWriter.write('\n');
-                        flags[IS_PREVIOUS_NEWLINE] += 1;
-                    }
-                    flags[HAS_OPENED_BRACE] -= 1;
-                    if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
-                        for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            bufferedWriter.write(' ');
-                        }
-                    }
-                    bufferedWriter.write(token.getLexeme());
-                    flags[EXPECTED_NEWLINE] = 1;
-                    flags[HAS_NON_DIVIDER_BEFORE] = 0;
-                    break;
-                case "TOKEN_SPACE":
-                    if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        bufferedWriter.write('\n');
-                        flags[IS_PREVIOUS_NEWLINE] += 1;
-                    }
-                    if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
-                        bufferedWriter.write(token.getLexeme());
-                    }
-                    break;
-                case "TOKEN_NEWLINE":
-                    if (flags[IS_PREVIOUS_NEWLINE] > 1) {
-                        flags[IS_PREVIOUS_NEWLINE] = 2;
-                    } else {
-                        bufferedWriter.write(token.getLexeme());
-                        flags[IS_PREVIOUS_NEWLINE] += 1;
-                        flags[EXPECTED_NEWLINE] = 0;
-                    }
-                    break;
-                case "TOKEN_TABULATION":
-                    if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
-                        bufferedWriter.write('\n');
-                        flags[IS_PREVIOUS_NEWLINE] += 1;
-                    }
-                    if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
-                        bufferedWriter.write(token.getLexeme());
-                    }
-                    break;
-                case "TOKEN_SEMICOLON":
-                    bufferedWriter.write(token.getLexeme());
-                    flags[HAS_NON_DIVIDER_BEFORE] = 0;
-                    flags[EXPECTED_NEWLINE] = 1;
-                    flags[IS_PREVIOUS_NEWLINE] = 0;
-                    break;
-                case "TOKEN_NON-DIVIDER":
-                    flags[IS_PREVIOUS_NEWLINE] = 0;
-                    if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
+            while (lexer.hasNextToken()) {
+                final int spaceTab = 4;
+                IToken token = lexer.getNextToken();
+                switch (token.getName()) {
+                    case "TOKEN_LEFTBRACE":
+                        flags[IS_PREVIOUS_NEWLINE] = 0;
                         if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
                             bufferedWriter.write('\n');
                             flags[IS_PREVIOUS_NEWLINE] += 1;
                         }
-                        for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
-                            bufferedWriter.write(' ');
+                        flags[EXPECTED_NEWLINE] = 1;
+                        if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
+                            if (previousSymbol != ' ') {
+                                bufferedWriter.write(' ');
+                            }
+                        } else {
+                            for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
+                                bufferedWriter.write(' ');
+                            }
                         }
-                    }
-                    flags[HAS_NON_DIVIDER_BEFORE] += 1;
-                    bufferedWriter.write(token.getLexeme());
-                    break;
-                default:
-                    break;
+                        bufferedWriter.write(token.getLexeme());
+                        flags[HAS_OPENED_BRACE] += 1;
+                        flags[HAS_NON_DIVIDER_BEFORE] = 0;
+                        flags[EXPECTED_NEWLINE] = 1;
+                        break;
+                    case "TOKEN_RIGHTBRACE":
+                        flags[IS_PREVIOUS_NEWLINE] = 0;
+                        if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
+                            bufferedWriter.write('\n');
+                            flags[IS_PREVIOUS_NEWLINE] += 1;
+                        }
+                        flags[HAS_OPENED_BRACE] -= 1;
+                        if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
+                            for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
+                                bufferedWriter.write(' ');
+                            }
+                        }
+                        bufferedWriter.write(token.getLexeme());
+                        flags[EXPECTED_NEWLINE] = 1;
+                        flags[HAS_NON_DIVIDER_BEFORE] = 0;
+                        break;
+                    case "TOKEN_SPACE":
+                        if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
+                            bufferedWriter.write('\n');
+                            flags[IS_PREVIOUS_NEWLINE] += 1;
+                        }
+                        if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
+                            bufferedWriter.write(token.getLexeme());
+                        }
+                        break;
+                    case "TOKEN_NEWLINE":
+                        if (flags[IS_PREVIOUS_NEWLINE] > 1) {
+                            flags[IS_PREVIOUS_NEWLINE] = 2;
+                        } else {
+                            bufferedWriter.write(token.getLexeme());
+                            flags[IS_PREVIOUS_NEWLINE] += 1;
+                            flags[EXPECTED_NEWLINE] = 0;
+                        }
+                        break;
+                    case "TOKEN_TABULATION":
+                        if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
+                            bufferedWriter.write('\n');
+                            flags[IS_PREVIOUS_NEWLINE] += 1;
+                        }
+                        if (flags[HAS_NON_DIVIDER_BEFORE] != 0) {
+                            bufferedWriter.write(token.getLexeme());
+                        }
+                        break;
+                    case "TOKEN_SEMICOLON":
+                        bufferedWriter.write(token.getLexeme());
+                        flags[HAS_NON_DIVIDER_BEFORE] = 0;
+                        flags[EXPECTED_NEWLINE] = 1;
+                        flags[IS_PREVIOUS_NEWLINE] = 0;
+                        break;
+                    case "TOKEN_NON-DIVIDER":
+                        flags[IS_PREVIOUS_NEWLINE] = 0;
+                        if (flags[HAS_NON_DIVIDER_BEFORE] == 0) {
+                            if ((previousSymbol == ';') || (previousSymbol == '{') || (previousSymbol == '}')) {
+                                bufferedWriter.write('\n');
+                                flags[IS_PREVIOUS_NEWLINE] += 1;
+                            }
+                            for (int i = 0; i < spaceTab * flags[HAS_OPENED_BRACE]; i++) {
+                                bufferedWriter.write(' ');
+                            }
+                        }
+                        flags[HAS_NON_DIVIDER_BEFORE] += 1;
+                        bufferedWriter.write(token.getLexeme());
+                        break;
+                    default:
+                        break;
+                }
+                previousSymbol = token.getLexeme().charAt(0);
             }
-            previousSymbol = token.getLexeme().charAt(0);
-        }
     }
 }

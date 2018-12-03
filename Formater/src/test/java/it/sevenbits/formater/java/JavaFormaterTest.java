@@ -40,8 +40,7 @@ public class JavaFormaterTest {
             StringWriter writer = new StringWriter();
             StringReader reader = new StringReader("");
             javaFormater.format(reader, writer);
-            assertEquals("Wrong result!",
-                "" ,writer.toString());
+            assertEquals("Wrong result!", "", writer.toString());
         }
 
         @Test

@@ -38,15 +38,10 @@ public class Token implements IToken {
 
     @Override
     public boolean equals(final Object o) {
-        if (o.getClass() != IToken.class) {
+        if ((o.getClass() != IToken.class) && (o.getClass() != Token.class)) {
             return false;
         }
         IToken other = (IToken) o;
-        return (this.getName().equals(other.getName()) && (this.getLexeme().equals(other.getLexeme())));
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
+        return ((this.getName().equals(other.getName())) && (this.getLexeme().equals(other.getLexeme())));
     }
 }

@@ -17,17 +17,17 @@ public class Lexer implements ILexer {
 
     /**
      * Assign its own reader with param1 object
-     *
+     * @throws IOException if error occurred in reader
      * @param reader object that bond with Lexer Reader
      */
 
-    public Lexer(final IReader reader) {
+    public Lexer(final IReader reader) throws IOException {
         this.reader = reader;
         try {
             this.nextToken = getRealNextToken();
         } catch (IOException e) {
             nextToken = new Token();
-            System.out.println("Lexer initiate exception: \n" + e.getMessage());
+            throw new IOException("lexer init IO error");
         }
     }
 
@@ -43,7 +43,6 @@ public class Lexer implements ILexer {
         try {
             nextToken = getRealNextToken();
         } catch (IOException e) {
-            System.out.println("getRealNextToken exception: \n" + e.getMessage());
             nextToken = new Token();
         }
         return result;
@@ -84,7 +83,7 @@ public class Lexer implements ILexer {
                     return new Token("TOKEN_NON-DIVIDER", sb.toString());
             }
         }
-        return new Token();
+        throw new IOException("End of stream reached");
     }
 
     /**

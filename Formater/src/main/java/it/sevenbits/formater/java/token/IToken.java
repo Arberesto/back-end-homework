@@ -19,4 +19,7 @@ public interface IToken {
      */
 
     String getLexeme();
+
+    @Override
+    boolean equals(Object o);
 }
