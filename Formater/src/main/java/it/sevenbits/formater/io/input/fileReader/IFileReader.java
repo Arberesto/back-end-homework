@@ -7,7 +7,7 @@ import java.io.IOException;
  * Class for reading from file per symbol
  */
 
-interface IFileReader extends IReader{
+interface IFileReader extends IReader {
 
     /**
      * check if file has another symbol to read

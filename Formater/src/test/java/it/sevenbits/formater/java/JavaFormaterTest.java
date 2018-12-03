@@ -36,11 +36,15 @@ public class JavaFormaterTest {
         }
 
         @Test
-        public void testJavaFormaterEmptyString() throws IOException {
+        public void testJavaFormaterEmptyString() {
             StringWriter writer = new StringWriter();
             StringReader reader = new StringReader("");
-            javaFormater.format(reader, writer);
-            assertEquals("Wrong result!", "", writer.toString());
+            try {
+                javaFormater.format(reader, writer);
+            } catch (IOException e) {
+                assertEquals("", writer.toString());
+            }
+
         }
 
         @Test

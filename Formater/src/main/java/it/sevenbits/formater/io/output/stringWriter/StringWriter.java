@@ -1,7 +1,5 @@
 package it.sevenbits.formater.io.output.stringWriter;
 
-import java.io.IOException;
-
 /**
  * <pre>
  * Write in string per symbol
@@ -39,7 +37,6 @@ public class StringWriter implements IStringWriter {
 
     /**
      * Automatically calls when closing this object
-     * @throws IOException if close is not supported
      * @see AutoCloseable
      */
 

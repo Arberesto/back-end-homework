@@ -27,12 +27,16 @@ final class Main {
         JavaFormater javaFormater = new JavaFormater(new LexerFactory());
         try (FileReader fileReader = new FileReader(args[0])) {
                 try (FileWriter fileWriter = new FileWriter(args[1])) {
-                    javaFormater.format(fileReader, fileWriter);
+                    try {
+                        javaFormater.format(fileReader, fileWriter);
+                    } catch (IOException e) {
+                        System.out.println("Sorry, can't format this");
+                    }
                 } catch (IOException e) {
-                    System.out.println("Write exception: \n" + e.getMessage());
+                    System.out.println("Wrong output file or filepath");
                 }
         } catch (IOException e) {
-            System.out.println("Read exception: \n" + e.getMessage());
+            System.out.println("Wrong input file or filepath");
         }
     }
 }

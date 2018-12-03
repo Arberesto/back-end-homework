@@ -44,4 +44,9 @@ public class Token implements IToken {
         IToken other = (IToken) o;
         return ((this.getName().equals(other.getName())) && (this.getLexeme().equals(other.getLexeme())));
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

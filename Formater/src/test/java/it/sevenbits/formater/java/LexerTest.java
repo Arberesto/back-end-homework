@@ -61,15 +61,14 @@ public class LexerTest {
     @Test
     public void testLexerIfNextTokenNull() throws IOException {
         IReader reader = mock(IReader.class);
-        when(reader.read()).thenReturn((int)'r');
-        when(reader.hasNext()).thenReturn(true,true);
+        when(reader.read()).thenReturn((int)'r',(int) ';');
+        when(reader.hasNext()).thenReturn(true,true, false);
         ILexer lexer = lexerFactory.createLexer(reader);
         IToken token = lexer.getNextToken();
         assertEquals(token,new Token("TOKEN_NON-DIVIDER","r"));
         token = lexer.getNextToken();
-        assertEquals(token,new Token());
+        assertEquals(token,new Token("TOKEN_SEMICOLON",";"));
         token = lexer.getNextToken();
         assertEquals(token,new Token());
-
     }
 }
