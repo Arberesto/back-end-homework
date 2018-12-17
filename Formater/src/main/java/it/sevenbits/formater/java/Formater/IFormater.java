@@ -1,4 +1,4 @@
-package it.sevenbits.formater.java;
+package it.sevenbits.formater.java.Formater;
 
 import it.sevenbits.formater.io.input.IReader;
 import it.sevenbits.formater.io.output.IWriter;

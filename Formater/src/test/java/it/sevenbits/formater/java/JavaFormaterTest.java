@@ -2,6 +2,7 @@ package it.sevenbits.formater.java;
 
 import it.sevenbits.formater.io.input.stringReader.StringReader;
 import it.sevenbits.formater.io.output.stringWriter.StringWriter;
+import it.sevenbits.formater.java.Formater.JavaFormater;
 import it.sevenbits.formater.java.lexer.Factory.LexerFactory;
 import org.junit.Before;
 import org.junit.Test;

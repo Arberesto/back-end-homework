@@ -2,7 +2,7 @@ package it.sevenbits.formater;
 
 import it.sevenbits.formater.io.input.fileReader.FileReader;
 import it.sevenbits.formater.io.output.fileWriter.FileWriter;
-import it.sevenbits.formater.java.JavaFormater;
+import it.sevenbits.formater.java.Formater.JavaFormater;
 import it.sevenbits.formater.java.lexer.Factory.LexerFactory;
 
 import java.io.IOException;
