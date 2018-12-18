@@ -30,7 +30,11 @@ public class StringWriter implements IStringWriter {
         sb.append(nextSymbol);
     }
 
-    @Override
+    /**
+     *
+     * @return
+     */
+
     public String toString() {
         return sb.toString();
     }

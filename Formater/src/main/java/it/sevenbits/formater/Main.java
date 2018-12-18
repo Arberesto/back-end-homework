@@ -2,8 +2,9 @@ package it.sevenbits.formater;
 
 import it.sevenbits.formater.io.input.fileReader.FileReader;
 import it.sevenbits.formater.io.output.fileWriter.FileWriter;
-import it.sevenbits.formater.java.Formater.JavaFormater;
-import it.sevenbits.formater.java.lexer.Factory.LexerFactory;
+//import it.sevenbits.formater.javaFormater.formater.JavaFormater;
+import it.sevenbits.formater.javaFormater.formater.StateMachineJavaFormater;
+import it.sevenbits.formater.javaFormater.lexer.factory.LexerFactory;
 
 import java.io.IOException;
 
@@ -24,11 +25,13 @@ final class Main {
      */
 
     public static void main(final String[] args) {
-        JavaFormater javaFormater = new JavaFormater(new LexerFactory());
+//        JavaFormater javaFormater = new JavaFormater(new LexerFactory());
+        StateMachineJavaFormater javaStateMachineFormater = new StateMachineJavaFormater(new LexerFactory());
         try (FileReader fileReader = new FileReader(args[0])) {
                 try (FileWriter fileWriter = new FileWriter(args[1])) {
                     try {
-                        javaFormater.format(fileReader, fileWriter);
+//                        javaFormater.format(fileReader, fileWriter);
+                        javaStateMachineFormater.format(fileReader, fileWriter);
                     } catch (IOException e) {
                         System.out.println("Sorry, can't format this");
                     }
