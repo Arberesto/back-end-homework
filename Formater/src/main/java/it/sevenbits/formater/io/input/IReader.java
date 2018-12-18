@@ -22,6 +22,8 @@ public interface IReader extends AutoCloseable {
 
     int read() throws IOException;
 
+    int predictNext() throws IOException;
+
     /**
      * Automatically calls when closing this object
      * @throws IOException if close is not supported

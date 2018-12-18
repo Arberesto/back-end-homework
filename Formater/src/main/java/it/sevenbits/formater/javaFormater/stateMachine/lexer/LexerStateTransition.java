@@ -9,7 +9,7 @@ public class LexerStateTransition {
         this.lexerStateMap = new LexerStateMap();
     }
 
-    public State nextState(final State state, final char symbol) {
+    public State nextState(final State state, final int symbol) {
         return lexerStateMap.getNextState(state, symbol);
     }
 
@@ -20,4 +20,8 @@ public class LexerStateTransition {
     public State getEndState() {
         return this.lexerStateMap.getEndState();
     }
+
+    public State getErrorState() {
+        return this.lexerStateMap.getErrorState();
+     }
 }

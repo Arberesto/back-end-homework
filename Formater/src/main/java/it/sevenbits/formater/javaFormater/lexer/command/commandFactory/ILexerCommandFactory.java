@@ -5,5 +5,5 @@ import it.sevenbits.formater.javaFormater.stateMachine.State;
 
 public interface ILexerCommandFactory {
 
-    ILexerCommand getCommand(char symbol, State state);
+    ILexerCommand getCommand(int symbol, State state);
 }

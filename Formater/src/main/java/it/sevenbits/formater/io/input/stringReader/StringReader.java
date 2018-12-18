@@ -1,6 +1,8 @@
 package it.sevenbits.formater.io.input.stringReader;
 
 
+import java.io.IOException;
+
 /**
  * <pre>
  * Read from string per symbol
@@ -35,14 +37,28 @@ public class StringReader implements IStringReader {
     /**
      * Read one symbol
      * @return ascii code of symbol(-1 if read nothing)
+     * @throws IOException if EOF reached
      */
 
-    public int read() {
+    public int read() throws IOException {
         if (hasNext()) {
             nextElementIndex++;
             return (int) string.charAt(nextElementIndex - 1);
         }
-        return -1;
+        throw new IOException("EOF reached");
+    }
+
+    /**
+     * Get next element that will be readed
+     * @return next element to read
+     * @throws IOException if EOF reached
+     */
+
+    public int predictNext() throws IOException {
+        if (hasNext()) {
+            return (int) string.charAt(nextElementIndex);
+        }
+        throw new IOException("EOF reached");
     }
 
     /**

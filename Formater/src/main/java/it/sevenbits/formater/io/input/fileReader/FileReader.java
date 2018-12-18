@@ -69,6 +69,15 @@ public class FileReader implements IFileReader {
     }
 
     /**
+     * Get next element that will be readed
+     * @return next element to read
+     */
+
+    public int predictNext() {
+            return nextChar;
+    }
+
+    /**
      * Automatically calls when closing this object
      * @throws IOException if close is not supported
      * @see AutoCloseable

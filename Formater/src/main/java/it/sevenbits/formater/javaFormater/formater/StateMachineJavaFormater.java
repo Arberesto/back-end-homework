@@ -34,12 +34,14 @@ public class StateMachineJavaFormater implements IFormater {
     public void format(final IReader reader, final IWriter writer) throws IOException {
         container.setDestination(new BufferedWriter(writer));
         ILexer lexer = this.lexerFactory.createLexer(reader);
+        IToken lastToken;
         State currentState = formaterStateTransition.getStartState();
         while (lexer.hasNextToken()) {
             IToken token = lexer.getNextToken();
             container.setNextString(token.getLexeme());
             formaterCommandFactory.getCommand(token, currentState).execute();
             currentState = formaterStateTransition.nextState(currentState, token);
+            lastToken = token;
         }
     }
 
