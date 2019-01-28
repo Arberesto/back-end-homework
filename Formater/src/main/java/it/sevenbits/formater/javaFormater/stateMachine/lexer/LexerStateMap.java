@@ -1,6 +1,6 @@
 package it.sevenbits.formater.javaFormater.stateMachine.lexer;
 
-import it.sevenbits.formater.javaFormater.lexer.command.commandFactory.LexerCommandFactory;
+import it.sevenbits.formater.javaFormater.lexer.token.symbolGroups.SymbolGroups;
 import it.sevenbits.formater.javaFormater.stateMachine.Pair;
 import it.sevenbits.formater.javaFormater.stateMachine.State;
 
@@ -25,128 +25,130 @@ public class LexerStateMap {
         State numberState = new State("NUMBER");
         State commentSuspicionState = new State("COMMENT_SUSPICION");
 
-        states.put(new Pair<>(startState, LexerCommandFactory.digit), numberState);
-        states.put(new Pair<>(startState, LexerCommandFactory.singleQuotation), charLiteralStartState);
-        states.put(new Pair<>(startState, LexerCommandFactory.doubleQuotation), stringLiteralState);
-        states.put(new Pair<>(startState, LexerCommandFactory.otherSymbols), endState);
-        states.put(new Pair<>(startState, LexerCommandFactory.endline), endState);
-        states.put(new Pair<>(startState, LexerCommandFactory.letterLowercase), literalState);
-        states.put(new Pair<>(startState, LexerCommandFactory.letterUppercase), literalState);
-        states.put(new Pair<>(startState, LexerCommandFactory.slash), commentSuspicionState);
-        states.put(new Pair<>(startState, LexerCommandFactory.space), spaceState);
-        states.put(new Pair<>(startState, LexerCommandFactory.star), endState);
+        states.put(new Pair<>(startState, SymbolGroups.digit), numberState);
+        states.put(new Pair<>(startState, SymbolGroups.singleQuotation), charLiteralStartState);
+        states.put(new Pair<>(startState, SymbolGroups.doubleQuotation), stringLiteralState);
+        states.put(new Pair<>(startState, SymbolGroups.otherSymbols), endState);
+        states.put(new Pair<>(startState, SymbolGroups.endline), endState);
+        states.put(new Pair<>(startState, SymbolGroups.letterLowercase), literalState);
+        states.put(new Pair<>(startState, SymbolGroups.letterUppercase), literalState);
+        states.put(new Pair<>(startState, SymbolGroups.slash), commentSuspicionState);
+        states.put(new Pair<>(startState, SymbolGroups.space), spaceState);
+        states.put(new Pair<>(startState, SymbolGroups.star), endState);
 
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.digit), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.singleQuotation), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.doubleQuotation), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.otherSymbols), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.letterLowercase), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.letterUppercase), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.slash), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.space), lineCommentaryState);
-        states.put(new Pair<>(lineCommentaryState, LexerCommandFactory.star), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.digit), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.singleQuotation), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.doubleQuotation), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.otherSymbols), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.letterLowercase), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.letterUppercase), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.slash), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.space), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.star), lineCommentaryState);
 
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.digit), stringLiteralState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.singleQuotation), stringLiteralState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.doubleQuotation), endState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.otherSymbols), stringLiteralState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.letterLowercase), stringLiteralState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.letterUppercase), stringLiteralState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.slash), stringLiteralState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.space), stringLiteralState);
-        states.put(new Pair<>(stringLiteralState, LexerCommandFactory.star), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.digit), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.singleQuotation), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.doubleQuotation), endState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.otherSymbols), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.letterLowercase), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.letterUppercase), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.slash), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.space), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.star), stringLiteralState);
 
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.digit), charLiteralEndState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.singleQuotation), errorState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.doubleQuotation), charLiteralEndState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.otherSymbols), charLiteralEndState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.letterLowercase), charLiteralEndState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.letterUppercase), charLiteralEndState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.slash), charLiteralEndState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.space), charLiteralEndState);
-        states.put(new Pair<>(charLiteralStartState, LexerCommandFactory.star), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.digit), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.singleQuotation), errorState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.doubleQuotation), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.otherSymbols), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.letterLowercase), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.letterUppercase), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.slash), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.space), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.star), charLiteralEndState);
 
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.digit), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.singleQuotation), endState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.doubleQuotation), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.otherSymbols), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.letterLowercase), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.letterUppercase), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.slash), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.space), errorState);
-        states.put(new Pair<>(charLiteralEndState, LexerCommandFactory.star), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.digit), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.singleQuotation), endState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.doubleQuotation), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.otherSymbols), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.letterLowercase), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.letterUppercase), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.slash), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.space), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.star), errorState);
 
-        states.put(new Pair<>(spaceState, LexerCommandFactory.digit), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.singleQuotation), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.doubleQuotation), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.otherSymbols), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.letterLowercase), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.letterUppercase), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.slash), errorState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.space), spaceState);
-        states.put(new Pair<>(spaceState, LexerCommandFactory.star), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.digit), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.singleQuotation), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.doubleQuotation), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.otherSymbols), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.letterLowercase), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.letterUppercase), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.slash), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.space), spaceState);
+        states.put(new Pair<>(spaceState, SymbolGroups.star), errorState);
 
-        states.put(new Pair<>(literalState, LexerCommandFactory.digit), literalState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.singleQuotation), errorState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.doubleQuotation), errorState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.otherSymbols), errorState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.letterLowercase), literalState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.letterUppercase), literalState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.slash), errorState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.space), errorState);
-        states.put(new Pair<>(literalState, LexerCommandFactory.star), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.digit), literalState);
+        states.put(new Pair<>(literalState, SymbolGroups.singleQuotation), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.doubleQuotation), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.otherSymbols), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.letterLowercase), literalState);
+        states.put(new Pair<>(literalState, SymbolGroups.letterUppercase), literalState);
+        states.put(new Pair<>(literalState, SymbolGroups.slash), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.space), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.star), errorState);
 
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.digit), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.singleQuotation), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.doubleQuotation), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.otherSymbols), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.letterLowercase), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.letterUppercase), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.slash), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.space), errorState);
-        states.put(new Pair<>(operationSymbolState, LexerCommandFactory.star), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.digit), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.singleQuotation), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.doubleQuotation), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.otherSymbols), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.letterLowercase), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.letterUppercase), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.slash), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.space), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.star), errorState);
 
-        states.put(new Pair<>(numberState, LexerCommandFactory.digit), numberState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.singleQuotation), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.doubleQuotation), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.otherSymbols), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.letterLowercase), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.letterUppercase), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.slash), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.space), errorState);
-        states.put(new Pair<>(numberState, LexerCommandFactory.star), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.digit), numberState);
+        states.put(new Pair<>(numberState, SymbolGroups.singleQuotation), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.doubleQuotation), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.otherSymbols), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.letterLowercase), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.letterUppercase), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.slash), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.space), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.star), errorState);
 
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.digit), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.singleQuotation), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.doubleQuotation), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.otherSymbols), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.endline), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.letterLowercase), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.letterUppercase), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.slash), lineCommentaryState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.space), errorState);
-        states.put(new Pair<>(commentSuspicionState, LexerCommandFactory.star), lineCommentaryState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.digit), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.singleQuotation), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.doubleQuotation), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.otherSymbols), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.endline), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.letterLowercase), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.letterUppercase), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.slash), lineCommentaryState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.space), errorState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.star), lineCommentaryState);
     }
 
-    public State getStartState() {
+    State getStartState() {
         return startState;
     }
 
-    public State getEndState() {
+    State getEndState() {
         return endState;
     }
 
-    public State getErrorState() {return errorState;}
+    State getErrorState() {
+        return errorState;
+    }
 
-    public State getNextState(final State state, final int signal) {
+    State getNextState(final State state, final int signal) {
         return states.getOrDefault(new Pair<>(state, signal), errorState);
     }
 }

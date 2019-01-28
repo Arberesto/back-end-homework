@@ -18,4 +18,8 @@ public final class FormaterStateTransition {
     public State getStartState() {
         return this.formaterStateMap.getStartState();
     }
+
+    public State getFinishState() {
+        return this.formaterStateMap.getFinishState();
+    }
 }

@@ -19,7 +19,7 @@ public class FormaterCommandFactory implements IFormaterCommandFactory {
         writeCommand = new FormaterWriteCommand();
         ignoreCommand = new FormaterIgnoreCommand();
         this.hashMap = new HashMap<>();
-        hashMap.put(new Pair<>("TOKEN_LEFTBRACE", "START"), ignoreCommand);
+//        hashMap.put(new Pair<>("TOKEN_LEFTBRACE", new State("START")), ignoreCommand);
     }
 
     public IFormaterCommand getCommand(final IToken token, final State state) {
