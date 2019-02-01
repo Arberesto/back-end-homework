@@ -1,22 +1,34 @@
 package it.sevenbits.formater.javaFormater.lexer.command.commandFactory;
 
-import it.sevenbits.formater.javaFormater.lexer.command.*;
+import it.sevenbits.formater.javaFormater.lexer.command.ILexerCommand;
+import it.sevenbits.formater.javaFormater.lexer.command.LexerAddCommand;
+import it.sevenbits.formater.javaFormater.lexer.command.LexerIgnoreCommand;
+import it.sevenbits.formater.javaFormater.lexer.command.LexerAddAndRenameCommand;
+import it.sevenbits.formater.javaFormater.lexer.command.LexerPreserveAndDiscardCommand;
+import it.sevenbits.formater.javaFormater.lexer.command.LexerPreserveExtraCommand;
 import it.sevenbits.formater.javaFormater.lexer.token.symbolGroups.SymbolGroups;
 import it.sevenbits.formater.javaFormater.stateMachine.Pair;
 import it.sevenbits.formater.javaFormater.stateMachine.State;
-
 import java.util.HashMap;
+
+/**
+ *
+ */
 
 public class LexerCommandFactory implements ILexerCommandFactory {
 
     private HashMap<Pair<Integer, State>, ILexerCommand> hashMap;
     private final ILexerCommand ignoreCommand;
-    private final ILexerCommand copyCommand;
-    private final ILexerCommand addAndRenameCommand;
-    private final ILexerCommand preserveExtraCommand;
-    private final ILexerCommand preserveAndDiscardCommand;
+
+    /**
+     * Constructor fills HashMap
+     */
 
     public LexerCommandFactory() {
+        final ILexerCommand copyCommand;
+        final ILexerCommand addAndRenameCommand;
+        final ILexerCommand preserveExtraCommand;
+        final ILexerCommand preserveAndDiscardCommand;
         copyCommand = new LexerAddCommand();
         ignoreCommand = new LexerIgnoreCommand();
         addAndRenameCommand = new LexerAddAndRenameCommand();
@@ -30,6 +42,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("START")), addAndRenameCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("START")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("START")), addAndRenameCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("START")), addAndRenameCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("START")), addAndRenameCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("START")), addAndRenameCommand);
@@ -41,6 +54,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("ONE_LINE_COMMENTARY")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("ONE_LINE_COMMENTARY")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("ONE_LINE_COMMENTARY")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("ONE_LINE_COMMENTARY")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("ONE_LINE_COMMENTARY")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("ONE_LINE_COMMENTARY")), copyCommand);
@@ -52,6 +66,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("STRING_LITERAL")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("STRING_LITERAL")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("STRING_LITERAL")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("STRING_LITERAL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("STRING_LITERAL")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("STRING_LITERAL")), copyCommand);
@@ -63,6 +78,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("CHAR_LITERAL_START")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("CHAR_LITERAL_START")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("CHAR_LITERAL_START")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("CHAR_LITERAL_START")),  preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("CHAR_LITERAL_START")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("CHAR_LITERAL_START")), copyCommand);
@@ -80,6 +96,8 @@ public class LexerCommandFactory implements ILexerCommandFactory {
                 preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("CHAR_LITERAL_END")),
+                preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("CHAR_LITERAL_END")), copyCommand);
@@ -94,6 +112,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("SPACE")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("SPACE")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("SPACE")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("SPACE")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("SPACE")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("SPACE")), preserveExtraCommand);
@@ -105,6 +124,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
@@ -116,6 +136,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("NUMBER")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("NUMBER")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("NUMBER")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("NUMBER")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("NUMBER")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("NUMBER")), preserveExtraCommand);
@@ -127,6 +148,7 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("COMMENT_SUSPICION")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("COMMENT_SUSPICION")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("COMMENT_SUSPICION")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("COMMENT_SUSPICION")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("COMMENT_SUSPICION")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("COMMENT_SUSPICION")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("COMMENT_SUSPICION")), preserveExtraCommand);
@@ -138,11 +160,19 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("LITERAL")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.slash, new State("LITERAL")), preserveExtraCommand);
         hashMap.put(new Pair<>(SymbolGroups.star, new State("LITERAL")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.dot, new State("LITERAL")), copyCommand);
         hashMap.put(new Pair<>(SymbolGroups.endline, new State("LITERAL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("LITERAL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("LITERAL")), preserveAndDiscardCommand);
         hashMap.put(new Pair<>(SymbolGroups.digit, new State("LITERAL")),  copyCommand);
     }
+
+    /**
+     * Get command based on current symbol and state
+     * @param symbol current symbol
+     * @param state current state
+     * @return new Command or ignoreCommand if can't find in map
+     */
 
     public ILexerCommand getCommand(final int symbol, final State state) {
         return hashMap.getOrDefault(new Pair<>(symbol , state), ignoreCommand);

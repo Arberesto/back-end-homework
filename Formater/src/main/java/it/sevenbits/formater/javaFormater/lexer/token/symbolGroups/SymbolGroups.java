@@ -7,6 +7,7 @@ public class SymbolGroups {
     public static final int digit = 4001;
     public static final int otherSymbols = 3001;
     public static final int space = (int) ' ';
+    public static final int dot = (int) '.';
     public static final int slash = (int) '/';
     public static final int star = (int) '*';
     public static final int endline = (int) '\n';
@@ -28,30 +29,31 @@ public class SymbolGroups {
             }
         }
 
-        if (symbol == '"') {
-            return doubleQuotation;
+        switch (symbol) {
+            case '"':
+                return doubleQuotation;
+
+            case (char)39 : // ' symbol
+                return singleQuotation;
+
+            case '\n':
+                return endline;
+
+            case '/':
+                return slash;
+
+            case '*':
+                return star;
+
+            case '.':
+                return dot;
+
+            case ' ':
+                return space;
+
+            default:
+                return otherSymbols;
         }
 
-        if (symbol == "'".charAt(0)) {
-            return singleQuotation;
-        }
-
-        if (symbol == '\n') {
-            return endline;
-        }
-
-        if (symbol == '/') {
-            return slash;
-        }
-
-        if (symbol == '*') {
-            return star;
-        }
-
-        if (symbol == ' ') {
-            return space;
-        }
-
-        return otherSymbols;
     }
 }

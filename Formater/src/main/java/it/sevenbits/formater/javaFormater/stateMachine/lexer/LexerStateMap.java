@@ -7,11 +7,19 @@ import it.sevenbits.formater.javaFormater.stateMachine.State;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LexerStateMap {
+/**
+ *
+ */
+
+class LexerStateMap {
     private final State startState = new State("START");
     private final State endState = new State("END");
     private final State errorState = new State("ERROR");
     private final Map<Pair<State, Integer>, State> states;
+
+    /**
+     * Constructor
+     */
 
     LexerStateMap() {
         states = new HashMap<>();
@@ -35,6 +43,7 @@ public class LexerStateMap {
         states.put(new Pair<>(startState, SymbolGroups.slash), commentSuspicionState);
         states.put(new Pair<>(startState, SymbolGroups.space), spaceState);
         states.put(new Pair<>(startState, SymbolGroups.star), endState);
+        states.put(new Pair<>(startState, SymbolGroups.dot), endState);
 
         states.put(new Pair<>(lineCommentaryState, SymbolGroups.digit), lineCommentaryState);
         states.put(new Pair<>(lineCommentaryState, SymbolGroups.singleQuotation), lineCommentaryState);
@@ -46,6 +55,7 @@ public class LexerStateMap {
         states.put(new Pair<>(lineCommentaryState, SymbolGroups.slash), lineCommentaryState);
         states.put(new Pair<>(lineCommentaryState, SymbolGroups.space), lineCommentaryState);
         states.put(new Pair<>(lineCommentaryState, SymbolGroups.star), lineCommentaryState);
+        states.put(new Pair<>(lineCommentaryState, SymbolGroups.dot), lineCommentaryState);
 
         states.put(new Pair<>(stringLiteralState, SymbolGroups.digit), stringLiteralState);
         states.put(new Pair<>(stringLiteralState, SymbolGroups.singleQuotation), stringLiteralState);
@@ -57,6 +67,7 @@ public class LexerStateMap {
         states.put(new Pair<>(stringLiteralState, SymbolGroups.slash), stringLiteralState);
         states.put(new Pair<>(stringLiteralState, SymbolGroups.space), stringLiteralState);
         states.put(new Pair<>(stringLiteralState, SymbolGroups.star), stringLiteralState);
+        states.put(new Pair<>(stringLiteralState, SymbolGroups.dot), stringLiteralState);
 
         states.put(new Pair<>(charLiteralStartState, SymbolGroups.digit), charLiteralEndState);
         states.put(new Pair<>(charLiteralStartState, SymbolGroups.singleQuotation), errorState);
@@ -68,6 +79,7 @@ public class LexerStateMap {
         states.put(new Pair<>(charLiteralStartState, SymbolGroups.slash), charLiteralEndState);
         states.put(new Pair<>(charLiteralStartState, SymbolGroups.space), charLiteralEndState);
         states.put(new Pair<>(charLiteralStartState, SymbolGroups.star), charLiteralEndState);
+        states.put(new Pair<>(charLiteralStartState, SymbolGroups.dot), charLiteralEndState);
 
         states.put(new Pair<>(charLiteralEndState, SymbolGroups.digit), errorState);
         states.put(new Pair<>(charLiteralEndState, SymbolGroups.singleQuotation), endState);
@@ -79,6 +91,7 @@ public class LexerStateMap {
         states.put(new Pair<>(charLiteralEndState, SymbolGroups.slash), errorState);
         states.put(new Pair<>(charLiteralEndState, SymbolGroups.space), errorState);
         states.put(new Pair<>(charLiteralEndState, SymbolGroups.star), errorState);
+        states.put(new Pair<>(charLiteralEndState, SymbolGroups.dot), errorState);
 
         states.put(new Pair<>(spaceState, SymbolGroups.digit), errorState);
         states.put(new Pair<>(spaceState, SymbolGroups.singleQuotation), errorState);
@@ -90,6 +103,7 @@ public class LexerStateMap {
         states.put(new Pair<>(spaceState, SymbolGroups.slash), errorState);
         states.put(new Pair<>(spaceState, SymbolGroups.space), spaceState);
         states.put(new Pair<>(spaceState, SymbolGroups.star), errorState);
+        states.put(new Pair<>(spaceState, SymbolGroups.dot), errorState);
 
         states.put(new Pair<>(literalState, SymbolGroups.digit), literalState);
         states.put(new Pair<>(literalState, SymbolGroups.singleQuotation), errorState);
@@ -101,6 +115,7 @@ public class LexerStateMap {
         states.put(new Pair<>(literalState, SymbolGroups.slash), errorState);
         states.put(new Pair<>(literalState, SymbolGroups.space), errorState);
         states.put(new Pair<>(literalState, SymbolGroups.star), errorState);
+        states.put(new Pair<>(literalState, SymbolGroups.dot), literalState);
 
         states.put(new Pair<>(operationSymbolState, SymbolGroups.digit), errorState);
         states.put(new Pair<>(operationSymbolState, SymbolGroups.singleQuotation), errorState);
@@ -112,6 +127,7 @@ public class LexerStateMap {
         states.put(new Pair<>(operationSymbolState, SymbolGroups.slash), errorState);
         states.put(new Pair<>(operationSymbolState, SymbolGroups.space), errorState);
         states.put(new Pair<>(operationSymbolState, SymbolGroups.star), errorState);
+        states.put(new Pair<>(operationSymbolState, SymbolGroups.dot), errorState);
 
         states.put(new Pair<>(numberState, SymbolGroups.digit), numberState);
         states.put(new Pair<>(numberState, SymbolGroups.singleQuotation), errorState);
@@ -123,6 +139,7 @@ public class LexerStateMap {
         states.put(new Pair<>(numberState, SymbolGroups.slash), errorState);
         states.put(new Pair<>(numberState, SymbolGroups.space), errorState);
         states.put(new Pair<>(numberState, SymbolGroups.star), errorState);
+        states.put(new Pair<>(numberState, SymbolGroups.dot), errorState);
 
         states.put(new Pair<>(commentSuspicionState, SymbolGroups.digit), errorState);
         states.put(new Pair<>(commentSuspicionState, SymbolGroups.singleQuotation), errorState);
@@ -134,6 +151,7 @@ public class LexerStateMap {
         states.put(new Pair<>(commentSuspicionState, SymbolGroups.slash), lineCommentaryState);
         states.put(new Pair<>(commentSuspicionState, SymbolGroups.space), errorState);
         states.put(new Pair<>(commentSuspicionState, SymbolGroups.star), lineCommentaryState);
+        states.put(new Pair<>(commentSuspicionState, SymbolGroups.dot), errorState);
     }
 
     State getStartState() {
@@ -147,6 +165,14 @@ public class LexerStateMap {
     State getErrorState() {
         return errorState;
     }
+
+    /**
+     * Get new state based on current state and signal
+     *
+     * @param state  current state
+     * @param signal current signal
+     * @return next State or errorState if can't find state in map
+     */
 
     State getNextState(final State state, final int signal) {
         return states.getOrDefault(new Pair<>(state, signal), errorState);
