@@ -15,11 +15,11 @@ public interface ILexerBufferContainer {
 
     void rename();
 
-    void setNextName(String nextName);
+//    void setNextName(String nextName);
 
     void setCurrentState(State currentState);
 
-    void setName(String name);
+//    void setName(String name);
 
     void addSymbol();
 

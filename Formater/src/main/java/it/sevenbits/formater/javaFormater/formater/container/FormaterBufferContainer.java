@@ -21,6 +21,10 @@ public class FormaterBufferContainer implements IFormaterBufferContainer {
         writer.write(nextString);
     }
 
+    public void writeLine() throws IOException {
+        writer.write("\n");
+    }
+
     public void setNextString(final String nextString) {
         this.nextString = nextString;
     }

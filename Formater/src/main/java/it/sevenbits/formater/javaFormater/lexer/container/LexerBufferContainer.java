@@ -13,7 +13,7 @@ public class LexerBufferContainer implements ILexerBufferContainer {
 
     private char nextSymbol;
     private String name;
-    private String nextName;
+//    private String nextName;
     private StringBuilder stringBuilder;
     private State currentState;
     private final StateMachineTokenName stateMachineTokenName;
@@ -23,7 +23,7 @@ public class LexerBufferContainer implements ILexerBufferContainer {
         name = "TOKEN_EMPTY";
         nextSymbol = '\0';
         currentState = new State("START");
-        nextName = "TOKEN_EMPTY";
+//        nextName = "TOKEN_EMPTY";
         stateMachineTokenName = new StateMachineTokenName();
     }
 
@@ -43,9 +43,13 @@ public class LexerBufferContainer implements ILexerBufferContainer {
         stringBuilder = new StringBuilder();
         name = "TOKEN_EMPTY";
         nextSymbol = '\0';
-        nextName = "TOKEN_EMPTY";
+       // nextName = "TOKEN_EMPTY";
         currentState = new State("START");
     }
+
+    /**
+     * Get new name based on currentState and nextSymbol or do nothing
+     */
 
     public void rename() {
         this.name = stateMachineTokenName.getOrDefault(currentState, nextSymbol, this.name);
@@ -59,15 +63,15 @@ public class LexerBufferContainer implements ILexerBufferContainer {
         return this.name;
     }
 
-    public void setCurrentState(State currentState) {
+    public void setCurrentState(final State currentState) {
         this.currentState = currentState;
     }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+//    public void setName(final String name) {
+//        this.name = name;
+//    }
 
-    public void setNextName(final String nextName) {
-        this.nextName = nextName;
-    }
+//    public void setNextName(final String nextName) {
+//        this.nextName = nextName;
+//    }
 }

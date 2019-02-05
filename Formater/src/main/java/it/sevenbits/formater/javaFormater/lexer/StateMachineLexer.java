@@ -15,6 +15,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * StateMachine to recognize tokens from text
+ */
+
 public class StateMachineLexer implements ILexer {
     private static Logger logger = LoggerFactory.getLogger(StateMachineLexer.class);
     private IReader reader;
@@ -76,7 +80,7 @@ public class StateMachineLexer implements ILexer {
         State currentState = lexerStateTransition.getStartState();
         State finishState = lexerStateTransition.getEndState();
         State errorState = lexerStateTransition.getErrorState();
-        while (reader.hasNext() && currentState != finishState && currentState != errorState ) {
+        while (reader.hasNext() && currentState != finishState && currentState != errorState) {
             char symbol = (char) reader.predictNext();
             logger.info("Current symbol: " + symbol);
             logger.info("Current symbolID: " + Integer.toString(SymbolGroups.getSymbolID(symbol)));

@@ -16,10 +16,13 @@ public class StateMachineTokenName {
     private final String literalToken = "TOKEN_LITERAL";
     private final String numberToken = "TOKEN_NUMBER";
     private final String endlineToken = "TOKEN_ENDLINE";
+    private final String semicolonToken = "TOKEN_SEMICOLON";
     private final String charLiteralToken = "TOKEN_CHAR_LITERAL";
     private final String otherSymbolsToken = "TOKEN_OTHER";
     private final String starToken = "TOKEN_STAR";
     private final String emptyToken = "TOKEN_EMPTY";
+    private final String leftBraceToken = "TOKEN_LEFTBRACE";
+    private final String rightBraceToken = "TOKEN_RIGHTBRACE";
 
     private final State startState = new State("START");
     private final State endState = new State("END");
@@ -37,31 +40,39 @@ public class StateMachineTokenName {
 
     public StateMachineTokenName() {
         states = new HashMap<>();
-        states.put(new Pair<>(SymbolGroups.space, startState), spaceToken);
-        states.put(new Pair<>(SymbolGroups.letterLowercase, startState), literalToken);
-        states.put(new Pair<>(SymbolGroups.letterUppercase, startState), literalToken);
-        states.put(new Pair<>(SymbolGroups.otherSymbols, startState), otherSymbolsToken);
-        states.put(new Pair<>(SymbolGroups.star, startState), starToken);
-        states.put(new Pair<>(SymbolGroups.endline, startState), endlineToken);
-        states.put(new Pair<>(SymbolGroups.singleQuotation, startState), charLiteralToken);
-        states.put(new Pair<>(SymbolGroups.doubleQuotation, startState), stringLiteralToken);
-        states.put(new Pair<>(SymbolGroups.digit, startState), numberToken);
+        states.put(new Pair<>(SymbolGroups.SPACE, startState), spaceToken);
+        states.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, startState), literalToken);
+        states.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, startState), literalToken);
+        states.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, startState), otherSymbolsToken);
+        states.put(new Pair<>(SymbolGroups.STAR, startState), starToken);
+        states.put(new Pair<>(SymbolGroups.DOT, startState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.SEMICOLON, startState), semicolonToken);
+        states.put(new Pair<>(SymbolGroups.ENDLINE, startState), endlineToken);
+        states.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, startState), charLiteralToken);
+        states.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, startState), stringLiteralToken);
+        states.put(new Pair<>(SymbolGroups.DIGIT, startState), numberToken);
+        states.put(new Pair<>(SymbolGroups.LEFT_BRACE, startState), leftBraceToken);
+        states.put(new Pair<>(SymbolGroups.RIGHT_BRACE, startState), rightBraceToken);
 
-        states.put(new Pair<>(SymbolGroups.space, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.letterLowercase, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.letterUppercase, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.otherSymbols, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.slash, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.star, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.endline, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.doubleQuotation, charLiteralEndState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.digit, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.SPACE, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.SLASH, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.STAR, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.DOT, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.SEMICOLON, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.ENDLINE, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.DIGIT, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.LEFT_BRACE, charLiteralEndState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.RIGHT_BRACE, charLiteralEndState), emptyToken);
 
-        states.put(new Pair<>(SymbolGroups.endline, stringLiteralState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.ENDLINE, stringLiteralState), emptyToken);
 
-        states.put(new Pair<>(SymbolGroups.endline, literalState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.singleQuotation, literalState), emptyToken);
-        states.put(new Pair<>(SymbolGroups.doubleQuotation, literalState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.ENDLINE, literalState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, literalState), emptyToken);
+        states.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, literalState), emptyToken);
 
     }
 

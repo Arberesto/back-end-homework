@@ -15,6 +15,8 @@ public interface IFormaterBufferContainer {
 
     int getTabulationCount();
 
+    void writeLine() throws IOException;
+
     void setDestination(IBufferedWriter newWriter);
 
     void setNextString(final String nextString);

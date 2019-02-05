@@ -36,135 +36,146 @@ public class LexerCommandFactory implements ILexerCommandFactory {
         preserveAndDiscardCommand = new LexerPreserveAndDiscardCommand();
         this.hashMap = new HashMap<>();
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("START")), addAndRenameCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("START")), addAndRenameCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("START")), addAndRenameCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("ONE_LINE_COMMENTARY")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("ONE_LINE_COMMENTARY")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("ONE_LINE_COMMENTARY")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("ONE_LINE_COMMENTARY")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("ONE_LINE_COMMENTARY")), copyCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("STRING_LITERAL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("STRING_LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("STRING_LITERAL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("STRING_LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("STRING_LITERAL")), copyCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("CHAR_LITERAL_START")),  preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("CHAR_LITERAL_START")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("CHAR_LITERAL_START")),  preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("CHAR_LITERAL_START")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("CHAR_LITERAL_START")), copyCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("CHAR_LITERAL_END")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("CHAR_LITERAL_END")),
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("CHAR_LITERAL_END")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("CHAR_LITERAL_END")),
+                preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("CHAR_LITERAL_END")),
                 preserveAndDiscardCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("SPACE")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("SPACE")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("SPACE")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("SPACE")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("SPACE")), preserveExtraCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("OPERATION_SYMBOL")), preserveAndDiscardCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("NUMBER")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("NUMBER")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("NUMBER")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("NUMBER")), copyCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("COMMENT_SUSPICION")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("COMMENT_SUSPICION")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("COMMENT_SUSPICION")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("COMMENT_SUSPICION")),  preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("COMMENT_SUSPICION")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("COMMENT_SUSPICION")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("COMMENT_SUSPICION")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("COMMENT_SUSPICION")),  preserveExtraCommand);
 
-        hashMap.put(new Pair<>(SymbolGroups.space, new State("LITERAL")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterLowercase, new State("LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.letterUppercase, new State("LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.otherSymbols, new State("LITERAL")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.slash, new State("LITERAL")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.star, new State("LITERAL")), preserveExtraCommand);
-        hashMap.put(new Pair<>(SymbolGroups.dot, new State("LITERAL")), copyCommand);
-        hashMap.put(new Pair<>(SymbolGroups.endline, new State("LITERAL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.singleQuotation, new State("LITERAL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.doubleQuotation, new State("LITERAL")), preserveAndDiscardCommand);
-        hashMap.put(new Pair<>(SymbolGroups.digit, new State("LITERAL")),  copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SPACE, new State("LITERAL")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_LOWERCASE, new State("LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.LETTER_UPPERCASE, new State("LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.OTHER_SYMBOLS, new State("LITERAL")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SLASH, new State("LITERAL")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.STAR, new State("LITERAL")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOT, new State("LITERAL")), copyCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SEMICOLON, new State("LITERAL")), preserveExtraCommand);
+        hashMap.put(new Pair<>(SymbolGroups.ENDLINE, new State("LITERAL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.SINGLE_QUOTATION, new State("LITERAL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DOUBLE_QUOTATION, new State("LITERAL")), preserveAndDiscardCommand);
+        hashMap.put(new Pair<>(SymbolGroups.DIGIT, new State("LITERAL")),  copyCommand);
     }
 
     /**
