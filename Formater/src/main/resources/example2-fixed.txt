@@ -1,14 +1,18 @@
-package it.sevenbits.formater;import java.util.Arrays;
+package it.sevenbits.formater;
+importjava.util.Arrays;
 import java.util.regex.Pattern;
 public class Formater {
-      private String regularExpression;
-      
-      
-      
-        private Formater() {
-            }
-    public Formater(String newRegularExpression) {regularExpression = newRegularExpression;}
+    private String regularExpression; 
+
+
+
+    private Formater() {
+}
+    public Formater(String newRegularExpression) {
+        regularExpression=        newRegularExpression;
+    }
     public String FormatLine(String line) {
-        StringBuilder sb = new StringBuilder();      return sb.toString();
+        StringBuilder sb = new StringBuilder();     
+        return        sb.toString();
 }
 }

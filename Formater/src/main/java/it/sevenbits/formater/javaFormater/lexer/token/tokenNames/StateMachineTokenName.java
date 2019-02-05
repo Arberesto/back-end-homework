@@ -11,7 +11,6 @@ public class StateMachineTokenName {
 
     private final Map<Pair<Integer, State>, String> states;
     private final String spaceToken = "TOKEN_SPACE";
-    private final String lineCommentaryToken = "TOKEN_LINE_COMMENTARY";
     private final String stringLiteralToken = "TOKEN_STRING_LITERAL";
     private final String literalToken = "TOKEN_LITERAL";
     private final String numberToken = "TOKEN_NUMBER";
