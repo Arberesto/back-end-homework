@@ -12,37 +12,41 @@ import java.io.IOException;
 public class AccessServlet extends HttpServlet { // register
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String name = req.getParameter("name");
+            String name = request.getParameter("name");
             SessionRepository sessionRepository = SessionRepository.getInstance();
             String id = sessionRepository.add(name);
             if (!"".equals(id)) {
-                resp.addCookie(new Cookie("sessionId", id));
-                resp.setStatus(HttpServletResponse.SC_CREATED);
+                response.addCookie(new Cookie("sessionId", id));
+                response.setStatus(HttpServletResponse.SC_CREATED);
             } else {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (Exception e) {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getCookies() != null) {
-            StringBuilder sb = new StringBuilder();
-            SessionRepository sessionRepository = SessionRepository.getInstance();
-            sb.append("<html><body>");
-            for (Cookie cookie : req.getCookies()) {
-                if ("sessionId".equals(cookie.getName())) {
-                    String name = sessionRepository.get(cookie.getValue());
-                    sb.append(String.format("Current User is %s", name));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            if (request.getCookies() != null) {
+                StringBuilder sb = new StringBuilder();
+                SessionRepository sessionRepository = SessionRepository.getInstance();
+                sb.append("<html><body>");
+                for (Cookie cookie : request.getCookies()) {
+                    if ("sessionId".equals(cookie.getName())) {
+                        String name = sessionRepository.get(cookie.getValue());
+                        sb.append(String.format("Current User is %s", name));
+                    }
                 }
+                sb.append("</body></html>");
+                response.getWriter().write(sb.toString());
+                response.setStatus(HttpServletResponse.SC_OK);
             }
-            sb.append("</body></html>");
-            resp.getWriter().write(sb.toString());
-            resp.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

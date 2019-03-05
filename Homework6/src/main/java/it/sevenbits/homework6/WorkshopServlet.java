@@ -1,6 +1,5 @@
 package it.sevenbits.homework6;
 
-import it.sevenbits.homework6.Repository.SessionRepository;
 import it.sevenbits.homework6.Repository.TaskRepository;
 
 import javax.servlet.ServletException;
@@ -17,8 +16,11 @@ public class WorkshopServlet extends HttpServlet { // /tasks
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String sessionId = request.getParameter("Authorization");
-
+            String sessionId = request.getHeader("Authorization");
+            if (sessionId == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
             if (request.getCookies() != null) {
                 boolean IsAuthorized = false;
                 for (Cookie cookie : request.getCookies()) {
@@ -33,6 +35,7 @@ public class WorkshopServlet extends HttpServlet { // /tasks
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error1", e.toString().replace(' ','_')));
             return;
         }
         try {
@@ -40,19 +43,20 @@ public class WorkshopServlet extends HttpServlet { // /tasks
             StringBuilder sb = new StringBuilder();
             sb.append("[\n");
             Set<String> keys = repository.getIdList();
-            for (String key : keys) {
-                sb.append(String.format("{\n\"id\":%s,\n\"name\":\"%s\"\n}, \n",
-                        key, repository.get(key)));
+            if ((keys != null)&&(!keys.isEmpty())) {
+                for (String key : keys) {
+                    sb.append(String.format("{\n\"id\":%s,\n\"name\":\"%s\"\n}, \n", key, repository.get(key)));
+                }
+                sb.deleteCharAt(sb.lastIndexOf(","));
             }
-            sb.deleteCharAt(sb.lastIndexOf(","));
             sb.append("]");
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
-
             response.getWriter().write(sb.toString());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error2", e.toString().replace(' ','_')));
         }
     }
 
@@ -60,7 +64,11 @@ public class WorkshopServlet extends HttpServlet { // /tasks
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String sessionId = request.getParameter("Authorization");
+            String sessionId = request.getHeader("Authorization");
+            if (sessionId == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
             if (request.getCookies() != null) {
                 boolean IsAuthorized = false;
                 for (Cookie cookie : request.getCookies()) {
@@ -75,6 +83,7 @@ public class WorkshopServlet extends HttpServlet { // /tasks
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error1", e.toString().replace(' ','_')));
             return;
         }
         try {
@@ -85,12 +94,10 @@ public class WorkshopServlet extends HttpServlet { // /tasks
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_CREATED);
             response.addHeader("Location", String.format("/item?id=%s", id));
-
-            response.getWriter().write(String.format("{\n\"id\":%s,\n\"name\":%s\n}",
-                    id, repository.get(id)));
+            response.getWriter().write(String.format("{\n\"id\":%s,\n\"name\":%s\n}", id, repository.get(id)));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error2", e.toString().replace(' ','_')));
         }
-
     }
 }

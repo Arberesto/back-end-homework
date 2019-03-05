@@ -15,7 +15,11 @@ public class WorkshopServlet1 extends HttpServlet { // /task
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String sessionId = request.getParameter("Authorization");
+            String sessionId = request.getHeader("Authorization");
+            if (sessionId == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
             if (request.getCookies() != null) {
                 boolean IsAuthorized = false;
                 for (Cookie cookie : request.getCookies()) {
@@ -30,29 +34,34 @@ public class WorkshopServlet1 extends HttpServlet { // /task
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error1", e.toString().split(" ")[0]));
             return;
         }
         try {
             String id = request.getParameter("taskId");
             TaskRepository repository = TaskRepository.getInstance();
             if (repository.contains(id)) {
-                response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write(String.format("{\n\"id\": %s,\n\"name\":%s\n}",
                         id, repository.get(id)));
+                response.setStatus(HttpServletResponse.SC_OK);
             } else {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error2", e.toString().split(" ")[0]));
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         try {
-            String sessionId = request.getParameter("Authorization");
+            String sessionId = request.getHeader("Authorization");
+            if (sessionId == null) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
             if (request.getCookies() != null) {
                 boolean IsAuthorized = false;
                 for (Cookie cookie : request.getCookies()) {
@@ -67,9 +76,9 @@ public class WorkshopServlet1 extends HttpServlet { // /task
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error1", e.toString().split(" ")[0]));
             return;
         }
-
         try {
             String id = request.getParameter("taskId");
             TaskRepository repository = TaskRepository.getInstance();
@@ -86,6 +95,7 @@ public class WorkshopServlet1 extends HttpServlet { // /task
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.addCookie(new Cookie("Error2", e.toString().split(" ")[0]));
         }
     }
 }
