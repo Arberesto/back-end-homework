@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<web-app>
+    <servlet>
+        <servlet-name>accessServlet</servlet-name>
+        <servlet-class>it.sevenbits.homework6.AccessServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>simpleServlet</servlet-name>
+        <servlet-class>it.sevenbits.homework6.WorkshopServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>simpleServlet1</servlet-name>
+        <servlet-class>it.sevenbits.homework6.WorkshopServlet1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>simpleServlet</servlet-name>
+        <url-pattern>/tasks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accessServlet</servlet-name>
+        <url-pattern>/registers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>simpleServlet1</servlet-name>
+        <url-pattern>/task</url-pattern>
+    </servlet-mapping>
+</web-app>

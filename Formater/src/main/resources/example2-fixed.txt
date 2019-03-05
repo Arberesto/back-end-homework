@@ -2,7 +2,7 @@ package it.sevenbits.formater;
 importjava.util.Arrays;
 import java.util.regex.Pattern;
 public class Formater {
-    private String regularExpression; 
+    private String regularExpression;
 
 
 
