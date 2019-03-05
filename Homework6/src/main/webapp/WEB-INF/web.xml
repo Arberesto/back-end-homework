@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <web-app>
     <servlet>
-        <servlet-name>accessServlet</servlet-name>
-        <servlet-class>it.sevenbits.homework6.AccessServlet</servlet-class>
+        <servlet-name>authorizationServlet</servlet-name>
+        <servlet-class>it.sevenbits.homework6.AuthorizationServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>simpleServlet</servlet-name>
-        <servlet-class>it.sevenbits.homework6.WorkshopServlet</servlet-class>
+        <servlet-name>tasksCreateAndViewServlet</servlet-name>
+        <servlet-class>it.sevenbits.homework6.TasksCreateAndViewServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>simpleServlet1</servlet-name>
-        <servlet-class>it.sevenbits.homework6.WorkshopServlet1</servlet-class>
+        <servlet-name>taskGetAndDeleteServlet</servlet-name>
+        <servlet-class>it.sevenbits.homework6.TaskGetAndDeleteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>simpleServlet</servlet-name>
+        <servlet-name>authorizationServlet</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tasksCreateAndViewServlet</servlet-name>
         <url-pattern>/tasks</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>accessServlet</servlet-name>
-        <url-pattern>/registers</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>simpleServlet1</servlet-name>
+        <servlet-name>taskGetAndDeleteServlet</servlet-name>
         <url-pattern>/task</url-pattern>
     </servlet-mapping>
 </web-app>

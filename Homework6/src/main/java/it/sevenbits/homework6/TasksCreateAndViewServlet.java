@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
-public class WorkshopServlet1 extends HttpServlet { // /task
+public class TasksCreateAndViewServlet extends HttpServlet { // /tasks
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,27 +35,31 @@ public class WorkshopServlet1 extends HttpServlet { // /task
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.addCookie(new Cookie("Error1", e.toString().split(" ")[0]));
             return;
         }
         try {
-            String id = request.getParameter("taskId");
             TaskRepository repository = TaskRepository.getInstance();
-            if (repository.contains(id)) {
-                response.getWriter().write(String.format("{\n\"id\": %s,\n\"name\":%s\n}",
-                        id, repository.get(id)));
-                response.setStatus(HttpServletResponse.SC_OK);
-            } else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            StringBuilder sb = new StringBuilder();
+            sb.append("[\n");
+            Set<String> keys = repository.getIdList();
+            if ((keys != null)&&(!keys.isEmpty())) {
+                for (String key : keys) {
+                    sb.append(String.format("{\n\"id\":%s,\n\"name\":\"%s\"\n}, \n", key, repository.get(key)));
+                }
+                sb.deleteCharAt(sb.lastIndexOf(","));
             }
+            sb.append("]");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write(sb.toString());
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.addCookie(new Cookie("Error2", e.toString().split(" ")[0]));
         }
     }
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             String sessionId = request.getHeader("Authorization");
@@ -76,26 +81,19 @@ public class WorkshopServlet1 extends HttpServlet { // /task
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.addCookie(new Cookie("Error1", e.toString().split(" ")[0]));
             return;
         }
         try {
-            String id = request.getParameter("taskId");
             TaskRepository repository = TaskRepository.getInstance();
-            if (repository.contains(id)) {
-                String result = String.format("{\n\"id\": %s,\n\"name\":%s\n}",
-                        id, repository.get(id));
-                repository.delete(id);
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.setContentType("application/json");
-                response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(result);
-            } else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            }
+            String name = request.getParameter("name");
+            String id = repository.add(name);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            response.addHeader("Location", String.format("/item?id=%s", id));
+            response.getWriter().write(String.format("{\n\"id\":%s,\n\"name\":%s\n}", id, repository.get(id)));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.addCookie(new Cookie("Error2", e.toString().split(" ")[0]));
         }
     }
 }
